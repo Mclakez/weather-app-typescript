@@ -2,10 +2,15 @@
 import errorIcon from "/assets/images/icon-error.svg";
 import retryIcon from "/assets/images/icon-retry.svg";
 
+type ErrorProp = {
+  callWeather: () => void
+  error: string | null
+}
 
 
 
-export default function Error( {callWeather, error} ) {
+
+export default function Error( {callWeather, error}: ErrorProp ) {
   const isNotFound = error === "not_found"
   
   return (

@@ -4,10 +4,18 @@ import dropdownIcon from "/assets/images/icon-dropdown.svg";
 import checkmarkIcon from "/assets/images/icon-checkmark.svg";
 import { useState } from "react";
 
+type HeaderProps = {
+    setTempUnit?: (unit: string) => void
+    setPrecipUnit?: (unit: string) => void
+    setWindUnit?: (unit: string) => void
+    tempUnit?: string
+    precipUnit?: string
+    windUnit?: string
+}
 
 
 
-export default function Header({ setTempUnit, setPrecipUnit, setWindUnit, tempUnit, precipUnit, windUnit }) {
+export default function Header({ setTempUnit, setPrecipUnit, setWindUnit, tempUnit, precipUnit, windUnit }: HeaderProps) {
 
 const [units, setShowUnits] = useState(false)
 const [metric, setMetric] = useState('imperial')
@@ -19,10 +27,10 @@ function displayUnits() {
 
 function switchMetric() {
   const newMetric = metric === 'imperial' ? 'metric' : 'imperial'
-  setTempUnit(newMetric === 'imperial' ? 'fahrenheit' : 'celsius')
-  setWindUnit(newMetric === 'imperial' ? 'mph' : 'kmh')
-  setPrecipUnit(newMetric === 'imperial' ? 'inch' : 'mm')
-  setMetric(newMetric)
+  setTempUnit?.(newMetric === 'imperial' ? 'fahrenheit' : 'celsius')
+  setWindUnit?.(newMetric === 'imperial' ? 'mph' : 'kmh')
+  setPrecipUnit?.(newMetric === 'imperial' ? 'inch' : 'mm')
+  setMetric?.(newMetric)
 }
 
 
@@ -46,11 +54,11 @@ function switchMetric() {
         <ul>
           <li className="flex flex-col gap-2 text-left">
             <span className="text-neutral-500 text-sm">Temperature</span>
-            <div className={`flex justify-between rounded p-1 ${tempUnit === "celsius" ? "bg-neutral-700" : ""}`} onClick={() => setTempUnit('celsius')}><span>Celsius(℃)</span>
+            <div className={`flex justify-between rounded p-1 ${tempUnit === "celsius" ? "bg-neutral-700" : ""}`} onClick={() => setTempUnit?.('celsius')}><span>Celsius(℃)</span>
             {tempUnit === "celsius"&& <img src={checkmarkIcon} alt="Checkmark Icon" />}
             </div>
 
-            <div className={`flex justify-between rounded p-1 ${tempUnit === "fahrenheit" ? "bg-neutral-700" : ""}`} onClick={() => setTempUnit('fahrenheit')}><span>Farenheit(℉)</span>
+            <div className={`flex justify-between rounded p-1 ${tempUnit === "fahrenheit" ? "bg-neutral-700" : ""}`} onClick={() => setTempUnit?.('fahrenheit')}><span>Farenheit(℉)</span>
             {tempUnit === "fahrenheit" && <img src={checkmarkIcon} alt="Checkmark Icon" />}
             </div>
           </li>
@@ -59,10 +67,10 @@ function switchMetric() {
 
           <li className="flex flex-col gap-2 text-left">
             <span className="text-neutral-500 text-sm">Wind Speed</span>
-            <div className={`flex justify-between rounded p-1 ${windUnit === "kmh" ? "bg-neutral-700" : ""}`} onClick={() => setWindUnit('kmh')}><span>km/h</span>
+            <div className={`flex justify-between rounded p-1 ${windUnit === "kmh" ? "bg-neutral-700" : ""}`} onClick={() => setWindUnit?.('kmh')}><span>km/h</span>
             {windUnit === "kmh" && <img src={checkmarkIcon} alt="Checkmark Icon" />}
             </div>
-            <div className={`flex justify-between rounded p-1 ${windUnit === "mph" ? "bg-neutral-700" : ""}`} onClick={() => setWindUnit('mph')}><span>mph</span>
+            <div className={`flex justify-between rounded p-1 ${windUnit === "mph" ? "bg-neutral-700" : ""}`} onClick={() => setWindUnit?.('mph')}><span>mph</span>
             {windUnit === "mph" && <img src={checkmarkIcon} alt="Checkmark Icon" />}
             </div>
           </li>
@@ -71,10 +79,10 @@ function switchMetric() {
 
           <li className="flex flex-col gap-2 text-left">
             <span className="text-neutral-500 text-sm">Precipitation</span>
-            <div className={`flex justify-between rounded p-1 ${precipUnit === "mm" ? "bg-neutral-700" : ""}`} onClick={() => setPrecipUnit('mm')}><span>Millimetres(mm)</span>
+            <div className={`flex justify-between rounded p-1 ${precipUnit === "mm" ? "bg-neutral-700" : ""}`} onClick={() => setPrecipUnit?.('mm')}><span>Millimetres(mm)</span>
             {precipUnit === "mm" && <img src={checkmarkIcon} alt="Checkmark Icon" />}
             </div>
-            <div className={`flex justify-between rounded p-1 ${precipUnit === "inch" ? "bg-neutral-700" : ""}`} onClick={() => setPrecipUnit('inch')}><span>Inches(in)</span>
+            <div className={`flex justify-between rounded p-1 ${precipUnit === "inch" ? "bg-neutral-700" : ""}`} onClick={() => setPrecipUnit?.('inch')}><span>Inches(in)</span>
             {precipUnit === "inch" && <img src={checkmarkIcon} alt="Checkmark Icon" />}
             </div>
           </li>

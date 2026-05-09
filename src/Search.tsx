@@ -1,20 +1,21 @@
 import searchIcon from "/assets/images/icon-search.svg";
 import { useState } from 'react'
+import type { SelectedCity } from "./App";
 
-export default function Search({ city, setCity, onAction, callWeather, onSelect}) {
-    // const [city, setCity] = useState(null)
+type SearchProps = {
+    setCity: (unit: string) => void;
+    onAction: (unit: string) => Promise<void>;
+    onSelect: (unit: SelectedCity) => void;
 
-    // async function getCitySearchDetails() {
-    //     const cityRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=en&format=json`)
-    //     const cityData = await cityRes.json()
-    //     console.log(cityData.results)
+}
 
-    // }
+export default function Search({ setCity, onAction, onSelect}: SearchProps) {
+    
     const [citySearch, setCitySearch] = useState("")
-    const [citySuggestions, setCitySuggestions] = useState([])
+    const [citySuggestions, setCitySuggestions] = useState<SelectedCity[]>([])
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(null)
-async function getCitySearchDetails(e) {
+    const [error, setError] = useState<string | null>(null)
+async function getCitySearchDetails(e: React.ChangeEvent<HTMLInputElement>) {
             let value = e.target.value
             setCitySearch(value)
        
@@ -30,7 +31,7 @@ async function getCitySearchDetails(e) {
                 const cityData = await cityRes.json()
                 
                 setCitySuggestions(cityData.results || [])
-                console.log(citySuggestions)
+                // console.log(citySuggestions)
                 
     
             } catch (error) {

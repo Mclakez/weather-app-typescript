@@ -1,4 +1,11 @@
-export default function WeatherDetails({weather, error, loading, tempUnit, precipUnit, windUnit}) {
+type WeatherDetailsProps = {
+    weather: any;
+    loading: boolean;
+    precipUnit: string;
+    windUnit: string;
+}
+
+export default function WeatherDetails({weather, loading, precipUnit, windUnit}: WeatherDetailsProps) {
     if (loading) {
         return (
              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 items-center mt-6 mb-8 justify-between">

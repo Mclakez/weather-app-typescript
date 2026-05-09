@@ -7,8 +7,15 @@ import iconDrizzle from "/assets/images/icon-drizzle.webp";
 import iconRain from "/assets/images/icon-rain.webp";
 import iconSnow from "/assets/images/icon-snow.webp";
 import './App.css'
+import type { Value } from './Forecast.tsx'
 
-export default function CurrentWeather({ weather, error , loading, values}) {
+type CurrentWeatherProps = {
+    weather: any;
+    loading: boolean;
+    values: Value | null;
+}
+
+export default function CurrentWeather({ weather, loading, values}: CurrentWeatherProps) {
     if(loading) {
         return (
             <div>

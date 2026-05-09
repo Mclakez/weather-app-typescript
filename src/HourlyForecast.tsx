@@ -8,29 +8,14 @@ import fogSrc from "/assets/images/icon-fog.webp";
 import drizzleSrc from "/assets/images/icon-drizzle.webp";
 import rainSrc from "/assets/images/icon-rain.webp";
 import snowSrc from "/assets/images/icon-snow.webp";
-const weatherIcons = {
-    0: "./assets/images/icon-sunny.webp",
-    1: "./assets/images/icon-partly-cloudy.webp",
-    2: "./assets/images/icon-cloudy.webp",
-    3: "./assets/images/icon-overcast.webp",
-    45: "./assets/images/icon-fog.webp",
-    48: "./assets/images/icon-fog.webp",
-    51: "./assets/images/icon-drizzle.webp",
-    53: "./assets/images/icon-drizzle.webp",
-    55: "./assets/images/icon-drizzle.webp",
-    61: "./assets/images/icon-rain.webp",
-    63: "./assets/images/icon-rain.webp",
-    65: "./assets/images/icon-rain.webp",
-    71: "./assets/images/icon-snow.webp",
-    73: "./assets/images/icon-snow.webp",
-    75: "./assets/images/icon-snow.webp",
-};
+import type { WeatherData } from "./App";
 
-// function getWeatherIcon(code) {
-//     return weatherIcons[code] || "/assets/images/icon-sunny.webp";
-// }
+type HourlyForecastProps = {
+    weather: WeatherData;
+    loading: boolean;
+}
 
-function getWeatherIcon(code) {
+function getWeatherIcon(code: number) {
     if (code === 0) return sunnySrc;
     if (code === 1) return partlyCloudySrc;
     if (code === 2 || code === 3) return overcastSrc;
@@ -41,7 +26,7 @@ function getWeatherIcon(code) {
     return sunnySrc;
 }
 
-export default function HourlyForecast({weather,error, loading}) {
+export default function HourlyForecast({weather, loading}: HourlyForecastProps) {
  if (loading) {
         const items =[]
         let i = 1
@@ -77,11 +62,10 @@ export default function HourlyForecast({weather,error, loading}) {
     }
 
 
-    const [showDays, setShowDays] = useState(false)
+    const [showDays, setShowDays] = useState<boolean>(false)
     
     const today = new Date().toLocaleDateString("en-US", { weekday: "long" } )
     const [day, setDay] = useState(today)
-    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     const availableDays = [...new Set(
         weather.hourly.time.map(date => new Date(date).toLocaleDateString("en-US", { weekday: "long" }))
     )]
@@ -101,7 +85,6 @@ export default function HourlyForecast({weather,error, loading}) {
         return new Date(convert.date).toLocaleDateString("en-US", { weekday: "long" }) === day
     })
 
-    console.log(weather)
 
    
    
@@ -141,7 +124,7 @@ export default function HourlyForecast({weather,error, loading}) {
                
             </div>
              <ul className="flex flex-col gap-2 mt-2 overflow-y-auto max-h-[450px]">
-                    {convertedDays.map((convertedDay, index) => (
+                    {convertedDays.map((convertedDay) => (
                         <li key={convertedDay.date} className="flex items-center justify-between gap-1 bg-neutral-700 p-1 border border-neutral-600 rounded-lg">
                             
                             <div className="flex items-center gap-1">

@@ -5,11 +5,12 @@ import iconFog from "/assets/images/icon-fog.webp";
 import iconDrizzle from "/assets/images/icon-drizzle.webp";
 import iconRain from "/assets/images/icon-rain.webp";
 import iconSnow from "/assets/images/icon-snow.webp";
+import type { WeatherData } from "./App";
 
-const weatherIcons = {
+const weatherIcons:Record<number, string> = {
     0: iconSunny,
     1: iconPartlyCloudy,
-    2: iconOvercast,        // Change from iconCloudy to iconOvercast
+    2: iconOvercast,        // Seems icon cloudy isnt available
     3: iconOvercast,
     45: iconFog,
     48: iconFog,
@@ -24,11 +25,16 @@ const weatherIcons = {
     75: iconSnow,
 };
 
-function getWeatherIcon(code) {
+type DailyForecastProps = {
+    weather: WeatherData;
+    loading: boolean;
+}
+
+function getWeatherIcon(code: number) {
     return weatherIcons[code] || iconSunny;
 }
 
-export default function DailyForecast({weather,error,loading}) {
+export default function DailyForecast({weather,loading}: DailyForecastProps) {
     if (loading) {
         const items =[]
         let i = 1
